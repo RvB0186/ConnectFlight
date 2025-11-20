@@ -1,0 +1,1141 @@
+﻿================================
+ARQUIVO: C:\Users\RvB\OneDrive\Área de Trabalho\TADS\Projeto_React\AulaReact\src\components\Footer\index.jsx
+================================
+// src/components/Footer/index.jsx
+import React from 'react';
+import * as S from './styles'; 
+import waveImg from '../../assets/wave.png'; 
+
+export function Footer() { 
+    return (
+        <S.Container>
+            {/* A imagem fica no fundo (na camada visual inferior pelo fluxo do DOM) */}
+            <S.WaveImage 
+                src={waveImg} 
+                alt="Onda decorativa" 
+            />
+
+            {/* O conteÃºdo fica "solto" por cima da imagem devido ao position: absolute */}
+            <S.Content>
+                <p>ConnectFlight Â© 2024. Todos os direitos reservados.</p>
+            </S.Content>
+        </S.Container>
+    );
+}
+
+
+
+================================
+ARQUIVO: C:\Users\RvB\OneDrive\Área de Trabalho\TADS\Projeto_React\AulaReact\src\components\Footer\styles.js
+================================
+// src/components/Footer/styles.js
+import styled from 'styled-components';
+
+export const Container = styled.footer`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    /* O position relative Ã© essencial para que o Content (absolute)
+       se posicione em relaÃ§Ã£o a este container, e nÃ£o Ã  pÃ¡gina inteira */
+    position: relative; 
+    
+    /* Removemos paddings verticais para que a imagem cole nas bordas */
+    padding: 0; 
+`;
+
+export const WaveImage = styled.img`
+    width: 100%;
+    height: auto;
+    display: block; /* Remove espaÃ§os fantasmas abaixo da imagem */
+    
+    /* A imagem fica no fluxo normal, ocupando o espaÃ§o e definindo a altura do footer */
+`;
+
+export const Content = styled.div`
+    /* Posicionamento Absoluto para ficar SOBRE a imagem */
+    position: absolute;
+    bottom: 0; /* Cola no fundo do container */
+    left: 0;
+    width: 100%;
+    
+    display: flex;
+    justify-content: center; /* Centraliza o texto horizontalmente */
+    align-items: center;
+    
+    /* Ajuste este padding para subir ou descer o texto dentro da onda */
+    padding-bottom: 20px; 
+
+    /* Define a cor do texto para a cor de fundo do tema (ex: branco/claro) */
+    p {
+        color: ${({ theme }) => theme.COLORS["color-background"]};
+        font-size: 15px; /* Ajuste conforme necessÃ¡rio */
+        margin: 0;
+    }
+`;
+
+
+
+================================
+ARQUIVO: C:\Users\RvB\OneDrive\Área de Trabalho\TADS\Projeto_React\AulaReact\src\components\Header\index.jsx
+================================
+import React from 'react';
+import * as S from './styles';
+
+export function Header() {
+    return (
+        <S.Container>
+            <S.Logo>ConnectFlight</S.Logo>
+            <S.Nav>
+                <S.NavLink to="/">Home</S.NavLink>
+                <S.NavLink to="/destinos">Destinos</S.NavLink>
+                <S.NavLink to="/sobre">Sobre</S.NavLink>
+                <S.NavLink to="/contato">Contato</S.NavLink>
+            </S.Nav>
+        </S.Container>
+    );
+}
+
+
+
+================================
+ARQUIVO: C:\Users\RvB\OneDrive\Área de Trabalho\TADS\Projeto_React\AulaReact\src\components\Header\styles.js
+================================
+// src/components/Header/styles.js
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+
+// 1. Container Principal do Header
+// UsarÃ¡ cores do tema (ex: BACKGROUND_900) e layout responsivo (Flexbox/Grid)
+export const Container = styled.header`
+    width: 100%;
+    height: 0px;
+    
+   
+    
+    padding: 0 40px;
+    
+    // Aplicando cor de fundo do tema
+    background-color: ${({ theme }) => theme.COLORS.BACKGROUND_900}; 
+    
+    border-bottom: 1px solid ${({ theme }) => theme.COLORS.GRAY_300};
+`;
+
+// 2. Estilo para o Logotipo ou TÃ­tulo
+export const Logo = styled.div`
+    font-size: 1.8rem;
+    font-weight: bold;
+    // Aplicando cor principal do tema
+    color: ${({ theme }) => theme.COLORS["color-primary"]}; 
+`;
+
+// 3. Estilo para a NavegaÃ§Ã£o (Menu)
+export const Nav = styled.nav`
+    display: flex;
+    gap: 30px;
+    align-items: center;
+`;
+
+// 4. Estilo para o Link de NavegaÃ§Ã£o (usando o componente Link do router)
+// A biblioteca styled() pode ser usada para estilizar qualquer componente React, 
+// como o Link do React Router.
+export const NavLink = styled(Link)`
+    // Garante que a cor do texto use o tema 
+    color: ${({ theme }) => theme.COLORS["color-text-title"]}; 
+    text-decoration: none; // Remover o underline dos links (regra global) 
+    transition: filter 0.2s; // TransiÃ§Ãµes suaves (regra global) 
+
+    &:hover {
+        // Aplica o efeito de filtro/brilho definido globalmente 
+        filter: brightness(0.9); 
+    }
+`;
+
+// Se vocÃª tiver um Ã­cone de UsuÃ¡rio, BotÃ£o de Login, etc.
+export const UserInfo = styled.div`
+    color: ${({ theme }) => theme.COLORS.GRAY_100};
+`;
+
+
+
+================================
+ARQUIVO: C:\Users\RvB\OneDrive\Área de Trabalho\TADS\Projeto_React\AulaReact\src\pages\Contato\FormularioContato.jsx
+================================
+// src/pages/Contato/FormularioContato.jsx
+import React from 'react';
+// Importa os estilos que acabamos de definir
+import * as S from './FormularioContatoStyles';
+
+export function FormularioContato() {
+    // LÃ³gica simples de manipulaÃ§Ã£o de formulÃ¡rio pode ser adicionada aqui
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        alert('FormulÃ¡rio enviado! (A lÃ³gica de integraÃ§Ã£o com a API viria aqui, usando Axios e o mÃ©todo POST [8])');
+    };
+
+    return (
+        <S.Form onSubmit={handleSubmit}>
+            <S.Label htmlFor="name">Nome:</S.Label>
+            <S.Input id="name" placeholder="Seu nome completo" required />
+
+            <S.Label htmlFor="email">E-mail:</S.Label>
+            <S.Input id="email" type="email" placeholder="seuemail@exemplo.com" required />
+
+            <S.Label htmlFor="message">Mensagem:</S.Label>
+            <S.TextArea id="message" placeholder="Escreva sua mensagem aqui..." rows="5" required />
+
+            <S.SubmitButton type="submit">
+                Enviar Contato
+            </S.SubmitButton>
+        </S.Form>
+    );
+}
+
+
+
+================================
+ARQUIVO: C:\Users\RvB\OneDrive\Área de Trabalho\TADS\Projeto_React\AulaReact\src\pages\Contato\FormularioContatoStyles.js
+================================
+// src/pages/Contato/FormularioContatoStyles.js
+import styled from 'styled-components'; 
+
+// 1. Container Principal do FormulÃ¡rio
+export const Form = styled.form`
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 500px;
+    padding: 30px;
+    margin: 0 auto;
+    background-color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+`;
+
+// 2. Componente de Label
+export const Label = styled.label`
+    font-size: 1rem;
+    color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
+    margin-bottom: -10px;
+`;
+
+// 3. Componente de Input e TextArea (Estilo Unificado)
+const InputBase = styled.input`
+    width: 100%;
+    padding: 12px;
+    border: 1px solid ${({ theme }) => theme.COLORS.BACKGROUND_900};
+    border-radius: 5px;
+    background-color: ${({ theme }) => theme.COLORS.BACKGROUND_800};
+    color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
+    font-size: 1rem;
+`;
+
+// Input simples (para nome, email, etc.)
+export const Input = styled(InputBase).attrs({ 
+    type: 'text' 
+})``;
+
+// Ãrea de texto (para a mensagem)
+export const TextArea = styled(InputBase).attrs({ 
+    as: 'textarea' 
+})`
+    resize: vertical;
+    min-height: 100px;
+`;
+
+// 4. Componente de BotÃ£o de Envio
+export const SubmitButton = styled.button`
+    padding: 12px 20px;
+    background-color: ${({ theme }) => theme.COLORS.ORANGE};
+    color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: filter 0.2s;
+    
+    &:hover {
+        filter: brightness(0.9);
+    }
+`;
+
+
+
+================================
+ARQUIVO: C:\Users\RvB\OneDrive\Área de Trabalho\TADS\Projeto_React\AulaReact\src\pages\Contato\index.jsx
+================================
+// src/pages/Contato/index.jsx
+
+import React from 'react';
+// IMPORTAÃ‡ÃƒO FALTANTE
+import { FormularioContato } from './FormularioContato'; // <--- Adicione esta linha
+
+// Importe os estilos e outros componentes, como Header e Footer
+import * as S from './styles';
+import { Header } from '../../components/Header'; 
+import { Footer } from '../../components/Footer'; 
+
+
+export function Contato() {
+    return (
+        <> 
+            <Header />
+            <S.Container>
+                <S.ContentSection>
+                    <S.Title>Fale com a <S.Highlight>ConnectFlight</S.Highlight></S.Title>
+                    <p>
+                        Utilize o formulÃ¡rio abaixo para nos enviar sua mensagem.
+                    </p>
+                    
+                    {/* Linha 23 (Onde o erro estava ocorrendo) */}
+                    <FormularioContato />
+                    {/* FIM DA INSERÃ‡ÃƒO */}
+
+                    <S.ContactInfo>
+                        <p>Telefone: (00) 1234-5678</p>
+                        <p>EndereÃ§o: Rua do CÃ³digo Limpo, 123</p>
+                    </S.ContactInfo>
+
+                </S.ContentSection>
+            </S.Container>
+            <Footer />
+        </>
+    );
+}
+
+
+
+================================
+ARQUIVO: C:\Users\RvB\OneDrive\Área de Trabalho\TADS\Projeto_React\AulaReact\src\pages\Contato\styles.js
+================================
+// src/pages/Contato/styles.js
+import styled from 'styled-components';
+
+// Container principal da pÃ¡gina Contato
+export const Container = styled.div`
+    // Usando variÃ¡veis do tema para cor de fundo (ex: BACKGROUND_800)
+    background-color: ${({ theme }) => theme.COLORS.BACKGROUND_800}; 
+    color: ${({ theme }) => theme.COLORS.WHITE}; 
+    
+    padding: 40px;
+    min-height: 80vh; 
+    
+    // Usando Flexbox para layouts responsivos [1]
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+`;
+
+// TÃ­tulo principal
+export const Title = styled.h1`
+    font-size: 3.5rem;
+    color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
+    margin-bottom: 30px;
+`;
+export const Highlight = styled.span`
+    color: ${({ theme }) => theme.COLORS.ROXO_BRILHANTE}; 
+    font-weight: bold;
+    text-shadow: 1px 1px 2px #333; 
+`;
+// SeÃ§Ã£o de ConteÃºdo para agrupamento
+export const ContentSection = styled.div`
+    width: 100%;
+    max-width: 700px;
+    text-align: center;
+    line-height: 1.6;
+
+    p {
+        color: ${({ theme }) => theme.COLORS. AZUL_ARROXEADO};
+        margin-bottom: 20px;
+        
+    }
+`;
+
+// InformaÃ§Ãµes de contato (exemplo)
+export const ContactInfo = styled.div`
+    margin-top: 30px;
+    padding: 20px;
+    border-top: 1px solid ${({ theme }) => theme.COLORS. AZUL_ARROXEADO};
+    
+    p {
+        font-weight: bold;
+        color: ${({ theme }) => theme.COLORS. AZUL_ARROXEADO};
+    }
+`;
+
+
+
+================================
+ARQUIVO: C:\Users\RvB\OneDrive\Área de Trabalho\TADS\Projeto_React\AulaReact\src\pages\Destinos\index.jsx
+================================
+// src/pages/Destinos/index.jsx
+import React from 'react';
+// Importa todos os styled components locais como S
+import * as S from './styles'; 
+
+// Importa os componentes reutilizÃ¡veis (assumindo que estÃ£o na pasta components)
+import { Header } from '../../components/Header'; 
+import { Footer } from '../../components/Footer'; 
+
+// 1. ImportaÃ§Ã£o das Imagens (Assets)
+import buenosairesImg from '../../assets/buenosaires.jpeg'; 
+import colombiaImg from '../../assets/colombia.jpg';
+import santiagoImg from '../../assets/santiago.jpeg';
+import uruguaiImg from '../../assets/uruguai.jpg';
+
+
+// 2. Mock dos Dados para renderizaÃ§Ã£o da AmÃ©rica Latina
+const destinosData = [
+    { name: "Argentina", img: buenosairesImg },
+    { name: "ColÃ´mbia", img: colombiaImg },
+    { name: "Chile", img: santiagoImg },
+    { name: "Uruguai", img: uruguaiImg },
+];
+
+
+export function Destinos() { // Componente Funcional
+    return (
+        <>
+            <Header /> 
+            
+            <S.Container>
+                <S.ContentSection>
+                    
+                    <S.Title>
+                        Nossos <S.Highlight>Destinos</S.Highlight> IncrÃ­veis
+                    </S.Title>
+
+                    <S.Paragraph>
+                        Explore os melhores pacotes de viagens que a ConnectFlight oferece, com foco especial na AmÃ©rica Latina.
+                    </S.Paragraph>
+
+                    {/* 3. RenderizaÃ§Ã£o do Grid de Destinos */}
+                    <S.DestinationsGrid>
+                        {destinosData.map((destino, index) => (
+                            // Utiliza o componente Card estilizado
+                            <S.DestinationCard key={index}>
+                                <S.DestinationImage 
+                                    src={destino.img} 
+                                    alt={`Imagem do destino: ${destino.name}`} 
+                                />
+                                <S.DestinationName>
+                                    {destino.name}
+                                </S.DestinationName>
+                            </S.DestinationCard>
+                        ))}
+                    </S.DestinationsGrid>
+
+                </S.ContentSection>
+            </S.Container>
+            
+            <Footer />
+        </>
+    );
+}
+
+
+
+================================
+ARQUIVO: C:\Users\RvB\OneDrive\Área de Trabalho\TADS\Projeto_React\AulaReact\src\pages\Destinos\styles.js
+================================
+// src/pages/Destinos/styles.js
+import styled from 'styled-components';
+
+// Container principal e seÃ§Ã£o de conteÃºdo (Estrutura padrÃ£o da pÃ¡gina)
+export const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 20px;
+    min-height: 100vh;
+    /* Usa cor de fundo definida no tema */
+    background-color: ${({ theme }) => theme.COLORS.BACKGROUND_800}; 
+    color: ${({ theme }) => theme.COLORS["color-text-body"]}; 
+`;
+
+export const ContentSection = styled.section`
+    width: 100%;
+    max-width: 1200px;
+    text-align: center;
+    margin-top: 40px;
+`;
+
+export const Title = styled.h1`
+    font-size: 3rem;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); 
+`;
+
+export const Highlight = styled.span`
+    /* Usa cor de destaque do tema */
+    color: ${({ theme }) => theme.COLORS["color-primary"]};
+    font-weight: bold; 
+`;
+
+export const Paragraph = styled.p`
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    text-align: center;
+`;
+
+// -----------------------------------------------------
+// Componentes para a Grade de Destinos (Grid Responsivo)
+// -----------------------------------------------------
+
+export const DestinationsGrid = styled.div`
+    width: 100%;
+    /* Define 2 colunas de largura igual (1fr) para telas grandes */
+    display: grid; 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 30px; /* EspaÃ§o entre os cards */
+    margin-top: 40px;
+    padding: 0 20px;
+    
+    /* Media Query: em telas menores que 768px, cai para uma Ãºnica coluna (Responsividade) */
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+`;
+
+export const DestinationCard = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Usa cor de fundo mais escura (BACKGROUND_900) do tema */
+    background-color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden; 
+    transition: transform 0.3s;
+    
+    &:hover {
+        transform: translateY(-5px);
+    }
+`;
+
+export const DestinationImage = styled.img`
+    width: 100%;
+    height: 200px; 
+    object-fit: cover; 
+`;
+
+export const DestinationName = styled.p`
+    font-size: 1.3rem;
+    font-weight: bold; 
+    /* Usa a cor de destaque (ORANGE) do tema */
+    color: ${({ theme }) => theme.COLORS.ORANGE};
+    padding: 15px 10px;
+    text-align: center;
+    width: 100%;
+`;
+
+
+
+================================
+ARQUIVO: C:\Users\RvB\OneDrive\Área de Trabalho\TADS\Projeto_React\AulaReact\src\pages\Home\index.jsx
+================================
+// src/pages/Home/index.jsx
+import React from 'react';
+import { Header } from '../../components/Header'; // Certifique-se da exportaÃ§Ã£o nomeada: export function Header()
+import  MainContent  from './MainContent.jsx'; // Componente que contÃ©m o layout principal (jÃ¡ corrigimos a exportaÃ§Ã£o nomeada aqui)
+import { Footer } from '../../components/Footer'; // Componente do rodapÃ© (jÃ¡ corrigimos a exportaÃ§Ã£o nomeada aqui)
+import  GlobalStyles  from '../../styles/global'; // JÃ¡ configurado no main.jsx, mas manter imports aqui ajuda a clareza
+
+export function Home() {
+    return (
+        // Uso de Fragment (<>) para agrupar sem adicionar um <div> extra ao DOM
+        <>
+            <Header /> 
+            <MainContent /> 
+            <Footer />
+        </>
+    );
+}
+
+
+
+================================
+ARQUIVO: C:\Users\RvB\OneDrive\Área de Trabalho\TADS\Projeto_React\AulaReact\src\pages\Home\MainContent.jsx
+================================
+// home/MainContent.jsx
+import React from 'react';
+import illustration from '../../assets/illustration.jpg'; // Fixed to .jpg and relative path
+import { 
+  MainContainer, 
+  ContentWrapper, 
+  IllustrationWrapper, 
+  TravelIllustration, 
+  MainTitle, 
+  HighlightText, 
+  BoldText, 
+  BodyParagraph, 
+  SmallText, 
+  FooterNav, 
+  NavLink, 
+  PageFooterDark 
+} from './MainContentStyles'; // Importa os Styled Components
+
+const MainContent = () => {
+  return (
+    <MainContainer>
+      <ContentWrapper>
+        
+        {/* 1. IlustraÃ§Ã£o */}
+        <IllustrationWrapper>
+          <TravelIllustration 
+            src={illustration} 
+            alt="IlustraÃ§Ã£o de mapa e pessoa" 
+          />
+        </IllustrationWrapper>
+
+        {/* 2. TÃ­tulo Principal */}
+        <MainTitle>
+          O seu prÃ³ximo <HighlightText>destino</HighlightText> pode estar aqui...
+        </MainTitle>
+
+        {/* 3. ParÃ¡grafos de DescriÃ§Ã£o */}
+        <BodyParagraph>
+          Aqui vocÃª encontra uma seleÃ§Ã£o de <BoldText>pacotes completos</BoldText> para as suas fÃ©rias!
+        </BodyParagraph>
+
+        <BodyParagraph className="wide-paragraph">
+          No <BoldText>ConnectFlight</BoldText> vocÃª encontra pacotes de viagens nacionais e internacionais que incluem: passagens aÃ©reas, hotÃ©is, cafÃ© da manhÃ£, e atÃ© seguro viagem com <BoldText>preÃ§os arrasadores</BoldText>!
+        </BodyParagraph>
+
+        <SmallText>
+          Se vocÃª ainda nÃ£o tem um destino definido, confira nossos destinos.
+        </SmallText>
+
+        {/* 4. NavegaÃ§Ã£o Inferior */}
+        <FooterNav>
+          <NavLink to="/destinos">Destinos</NavLink>
+          <NavLink to="/sobre">Sobre</NavLink>
+          <NavLink to="/contato">Contato</NavLink>
+        </FooterNav>
+      </ContentWrapper>
+      
+      {/* 5. RodapÃ© Escuro */}
+      <PageFooterDark>
+        {/* ConteÃºdo do rodapÃ© (se houver) */}
+      </PageFooterDark>
+    </MainContainer>
+  );
+};
+
+export default MainContent;
+
+
+
+================================
+ARQUIVO: C:\Users\RvB\OneDrive\Área de Trabalho\TADS\Projeto_React\AulaReact\src\pages\Home\MainContentStyles.js
+================================
+// home/MainContentStyles.js
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+
+// --- VariÃ¡veis de Cores ---
+const COLORS = {
+  primary: '#EE24FF', // Roxo Destaque
+  secondary: '#3F3D56', // Roxo Escuro (RodapÃ© e IlustraÃ§Ã£o)
+  textTitle: '#333333',
+  textBody: '#666666',
+};
+
+// Componente Principal
+export const MainContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; 
+  background-color: white;
+  
+`;
+
+export const ContentWrapper = styled.div`
+  flex-grow: 1;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 60px 20px 0;
+  text-align: center;
+`;
+
+// --- IlustraÃ§Ã£o ---
+export const IllustrationWrapper = styled.div`
+  margin-bottom: 60px;
+  display: flex;
+  justify-content: center;
+`;
+
+export const TravelIllustration = styled.img`
+  max-width: 100%; 
+  height: auto;
+  width: 350px; /* Tamanho da ilustraÃ§Ã£o na imagem */
+`;
+
+// --- Tipografia ---
+export const MainTitle = styled.h1`
+  font-size: 32px;
+  font-weight: 400; /* NÃ£o Ã© negrito */
+  color: ${COLORS.textTitle};
+  margin-bottom: 25px;
+  line-height: 1.2;
+  text-shadow: 1px 1px 5px #bebdbdff; 
+`;
+
+export const HighlightText = styled.span`
+  color: ${COLORS.primary};
+  font-weight: 700; /* Negrito */
+`;
+
+export const BoldText = styled.span`
+  font-weight: 700;
+`;
+
+export const BodyParagraph = styled.p`
+  font-size: 16px;
+  color: ${COLORS.textBody};
+  line-height: 1.6;
+  margin-bottom: 15px;
+  padding: 0 160px; /* Limita a largura do texto para centralizar */
+
+  &.wide-paragraph {
+    margin-top: 25px;
+  }
+`;
+
+export const SmallText = styled(BodyParagraph)`
+  font-size: 14px;
+  margin-top: 30px;
+  margin-bottom: 0;
+`;
+
+// --- NavegaÃ§Ã£o Inferior ---
+export const FooterNav = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 60px; 
+  margin-top: 60px;
+  margin-bottom: 100px; 
+`;
+
+export const NavLink = styled(Link)`
+  font-size: 16px;
+  font-weight: 600; 
+  color: #333333; /* ou ${COLORS.textTitle} se estiver usando variÃ¡veis */
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #EE24FF; /* ou ${COLORS.primary} */
+  }
+`;
+
+// --- RodapÃ© Escuro ---
+export const PageFooterDark = styled.footer`
+  width: 100%;
+  background-color: ${COLORS.secondary};
+  min-height: 00px;
+  margin-top: auto; 
+`;
+
+
+
+================================
+ARQUIVO: C:\Users\RvB\OneDrive\Área de Trabalho\TADS\Projeto_React\AulaReact\src\pages\Home\styles.js
+================================
+// Exemplo: src/pages/Home/styles.js
+import styled from 'styled-components';
+
+export const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+`;
+
+export const HighlightedWord = styled.span`
+    // Acessa a cor HIGHIGHT definida no theme.js
+    color: ${ ({ theme }) => theme.COLORS.ROXO_BRILHANTE };
+    font-weight: bold;
+`;
+
+
+
+================================
+ARQUIVO: C:\Users\RvB\OneDrive\Área de Trabalho\TADS\Projeto_React\AulaReact\src\pages\Sobre\index.jsx
+================================
+// src/pages/Sobre/index.jsx
+import React from 'react';
+import sonhoImg from '../../assets/sonho.jpg'; 
+// Importa todos os styled components locais como S
+import * as S from './styles'; 
+
+// Importa os componentes reutilizÃ¡veis (assumindo que estÃ£o na pasta components)
+// Lembre-se de verificar o caminho correto de importaÃ§Ã£o no seu projeto.
+import { Header } from '../../components/Header'; 
+import { Footer } from '../../components/Footer'; 
+
+
+export function Sobre() { // ExportaÃ§Ã£o nomeada do componente (boa prÃ¡tica)
+    return (
+        <>
+            <Header /> {/* Componente de cabeÃ§alho */}
+            
+            <S.Container>
+                <S.ContentSection>
+                    
+                    {/* TÃ­tulo animado e chamativo, usando Highlight para cor de destaque */}
+                    <S.Title>
+                        <S.Highlight>ConnectFlight</S.Highlight>
+                    </S.Title>
+                    {/* 2. INSERÃ‡ÃƒO DA IMAGEM AQUI */}
+                    <S.AboutImage 
+                        src={sonhoImg} 
+                        alt="Destino de fÃ©rias dos sonhos" 
+                    />
+                    {/* FIM DA INSERÃ‡ÃƒO */}
+                    <S.Paragraph>
+                        A ConnectFlight nasceu em 2020 com a missÃ£o de simplificar a experiÃªncia de viagem para o cliente brasileiro. Inicialmente, focamos no agenciamento de voos domÃ©sticos, construindo uma base sÃ³lida de confianÃ§a e excelÃªncia em serviÃ§os.
+                    </S.Paragraph>
+
+                    <S.Paragraph>
+                        Com o rÃ¡pido crescimento e o reconhecimento pela qualidade do atendimento, expandimos nossas operaÃ§Ãµes. Atualmente, atuamos em todos os destinos globais, com um foco especial na criaÃ§Ã£o de pacotes exclusivos para a AmÃ©rica Latina, oferecendo experiÃªncias inesquecÃ­veis em paÃ­ses como Argentina, Chile, Peru e MÃ©xico.
+                    </S.Paragraph>
+
+                    <S.Paragraph>
+                        Nossa operaÃ§Ã£o Ã© pautada na tecnologia e no atendimento humanizado, garantindo que cada voo, seja ele domÃ©stico ou internacional, seja apenas o comeÃ§o de uma jornada incrÃ­vel. Na ConnectFlight, vocÃª encontra a seguranÃ§a e a flexibilidade que precisa para realizar a viagem dos seus sonhos.
+                    </S.Paragraph>
+
+                </S.ContentSection>
+            </S.Container>
+            
+            <Footer /> {/* Componente de rodapÃ© */}
+        </>
+    );
+}
+
+
+
+================================
+ARQUIVO: C:\Users\RvB\OneDrive\Área de Trabalho\TADS\Projeto_React\AulaReact\src\pages\Sobre\styles.js
+================================
+// src/pages/Sobre/styles.js
+import styled, { keyframes } from 'styled-components';
+
+// 1. DefiniÃ§Ã£o da AnimaÃ§Ã£o (Opcional, para deixar o tÃ­tulo "animado")
+// Cria um pequeno movimento de fade-in e escala, para dar o toque chamativo
+const fadeInScale = keyframes`
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+`;
+
+// 2. Container Principal da PÃ¡gina
+export const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 10px;
+    min-height: 100vh;
+    background-color: ${({ theme }) => theme.COLORS.BACKGROUND_800}; /* Usa cor do tema */
+    color: ${({ theme }) => theme.COLORS.AZUL_ARROXEADO}; /* Usa cor do tema */
+`;
+
+// 3. SeÃ§Ã£o de ConteÃºdo (para limitar a largura do texto)
+export const ContentSection = styled.section`
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+    line-height: 1.6;
+    margin-top: 10px;
+    animation: ${fadeInScale} 1.2s ease-out; /* Aplica a animaÃ§Ã£o ao bloco de conteÃºdo */
+`;
+
+// 4. TÃ­tulo Principal da PÃ¡gina
+export const Title = styled.h1`
+    font-size: 3rem;
+    margin-bottom: 10px;
+    
+    
+    text-shadow: 2px 2px 4px rgba(130, 130, 130, 0.5); 
+    
+    @media (max-width: 768px) {
+        font-size: 2rem;
+    }
+`;
+
+// 5. Componente de Destaque (Highlight) para a palavra/frase chamativa
+export const Highlight = styled.span`
+    color: ${({ theme }) => theme.COLORS.ROXO_BRILHANTE};
+    font-weight: bold; /* Deixa a fonte em negrito [Query] */
+    display: block; /* Quebra a linha da frase de destaque */
+    margin-top: 10px;
+    font-size: 3.5rem;
+`;
+
+// 6. ParÃ¡grafos de Resumo
+export const Paragraph = styled.p`
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    text-align: justify;
+    padding: 0 10px;
+`;
+// 7. Componente: Imagem
+export const AboutImage = styled.img`
+    width: 100%; 
+    max-width: 500px; /* Limita o tamanho para que nÃ£o ocupe a tela inteira */
+    height: auto;
+    
+    /* CentralizaÃ§Ã£o Horizontal (como Ã© um elemento de bloco) */
+    display: block;
+    margin: 10px auto 30px auto; 
+    
+    border-radius: 8px;
+    object-fit: cover; /* Garante que a imagem se ajuste bem ao container */
+
+    /* Adiciona uma sombra para destacar a imagem */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); 
+`;
+
+
+
+================================
+ARQUIVO: C:\Users\RvB\OneDrive\Área de Trabalho\TADS\Projeto_React\AulaReact\src\routes\auth.routes.jsx
+================================
+
+import { Routes, Route } from 'react-router-dom'; [18]
+import { Home } from '../pages/Home/index.jsx'; 
+import { Sobre } from '../pages/Sobre/index.jsx';
+import { Contato } from '../pages/Contato/index.jsx';
+import { Destinos } from '../pages/Destinos/index.jsx';
+
+export function AuthRoutes() {
+    return (
+        <Routes>
+            {/* Rota para a PÃ¡gina Inicial */}
+            <Route path="/" element={<Home />} /> [17]
+            
+            {/* Rotas para as pÃ¡ginas adicionais */}
+            <Route path="/sobre" element={<Sobre />} />
+            <Route path="/contato" element={<Contato />} />
+            <Route path="/destinos" element={<Destinos />} />
+
+        </Routes>
+    );
+}
+
+
+
+================================
+ARQUIVO: C:\Users\RvB\OneDrive\Área de Trabalho\TADS\Projeto_React\AulaReact\src\routes\index.jsx
+================================
+// src/routes/index.jsx
+
+import { BrowserRouter } from 'react-router-dom'; // Importa BrowserRouter 
+import { AuthRoutes } from './auth.routes'; // Importa as rotas definidas (Passo 3.1)
+
+export function Routes() { // Note que este Ã© o componente Routes (com R maiÃºsculo)
+    return (
+        <BrowserRouter>
+            <AuthRoutes />
+        </BrowserRouter>
+    );
+}
+
+
+
+================================
+ARQUIVO: C:\Users\RvB\OneDrive\Área de Trabalho\TADS\Projeto_React\AulaReact\src\styles\global.js
+================================
+// global.js
+import { createGlobalStyle } from 'styled-components';
+
+const GlobalStyles = createGlobalStyle`
+  /* --- Reset BÃ¡sico --- */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    /* Define a fonte limpa. Ajuste se estiver usando uma fonte especÃ­fica (ex: Poppins) */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    line-height: 1.5;
+    background-color: white;
+    -webkit-font-smoothing: antialiased;
+  }
+`;
+
+export default GlobalStyles;
+
+
+
+================================
+ARQUIVO: C:\Users\RvB\OneDrive\Área de Trabalho\TADS\Projeto_React\AulaReact\src\styles\theme.js
+================================
+// src/styles/theme.js
+
+export default {
+    COLORS: {
+        // Exemplo de variÃ¡veis de cores
+        BACKGROUND_900: "#232129", 
+        WHITE: "#F4EDE8",
+        ORANGE: "#FF9000",
+        GRAY_300: "#666360",
+        AZUL_ARROXEADO: "#3F3D56",
+        ROXO_BRILHANTE: "#EE24FF",
+        GRAY_51: "#828282",
+        GRAY_PALE: "#ECEFF2",
+        "color-primary": "#EE24FF",
+        "color-secondary": "#3F3D56",
+        "color-text-title": "#333333",
+        "color-text-body": "#666666",
+        "color-background": "#FFFFFF", /* Fundo branco puro */
+        "color-light-gray": "#ECEFF2", /* Cinza do background lateral da figura original */
+
+    }
+}
+
+
+
+================================
+ARQUIVO: C:\Users\RvB\OneDrive\Área de Trabalho\TADS\Projeto_React\AulaReact\src\main.jsx
+================================
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import GlobalStyles from './styles/global.js'; // CORRIGIDO: Sem chaves, pois global.js usa 'export default'
+import { ThemeProvider } from 'styled-components'; // Importa ThemeProvider [1]
+import theme from './styles/theme.js'; // Importa o objeto tema [1, 5]
+import { Routes } from './routes'; // Importa o componente de rotas [1, 5]
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    {/* O GlobalStyles precisa estar dentro do ThemeProvider [2, 5] */}
+    <ThemeProvider theme={theme}>
+        <GlobalStyles/> {/* O componente Ã© usado como uma tag JSX [2, 5] */}
+        <Routes />
+    </ThemeProvider>
+  </React.StrictMode>,
+);
+
+
+
+================================
+ARQUIVO: C:\Users\RvB\OneDrive\Área de Trabalho\TADS\Projeto_React\AulaReact\eslint.config.js
+================================
+import js from '@eslint/js'
+import globals from 'globals'
+import reactHooks from 'eslint-plugin-react-hooks'
+import reactRefresh from 'eslint-plugin-react-refresh'
+import { defineConfig, globalIgnores } from 'eslint/config'
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{js,jsx}'],
+    extends: [
+      js.configs.recommended,
+      reactHooks.configs.flat.recommended,
+      reactRefresh.configs.vite,
+    ],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.browser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        ecmaFeatures: { jsx: true },
+        sourceType: 'module',
+      },
+    },
+    rules: {
+      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+    },
+  },
+])
+
+
+
+================================
+ARQUIVO: C:\Users\RvB\OneDrive\Área de Trabalho\TADS\Projeto_React\AulaReact\index.html
+================================
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>aulareact</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+
+
+
+================================
+ARQUIVO: C:\Users\RvB\OneDrive\Área de Trabalho\TADS\Projeto_React\AulaReact\package.json
+================================
+{
+  "name": "aulareact",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-router-dom": "^7.9.6",
+    "styled-components": "^6.1.19"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "@vitejs/plugin-react": "^5.1.0",
+    "babel-plugin-react-compiler": "^1.0.0",
+    "eslint": "^9.39.1",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "globals": "^16.5.0",
+    "vite": "^7.2.2"
+  }
+}
+
+
+
+================================
+ARQUIVO: C:\Users\RvB\OneDrive\Área de Trabalho\TADS\Projeto_React\AulaReact\vite.config.js
+================================
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [
+    react({
+      babel: {
+        plugins: [['babel-plugin-react-compiler']],
+      },
+    }),
+  ],
+})
+
+
+
