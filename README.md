@@ -62,13 +62,14 @@ src/
 └── main.jsx         # Ponto de entrada
 
 
+
 🔧 Como Executar o Projeto
 
 Pré-requisitos: Você precisa ter o Node.js instalado em sua máquina.
 
 Clone o repositório:
 
-git clone [https://github.com/seu-usuario/ConnectFlight.git](https://github.com/seu-usuario/ConnectFlight.git)
+git clone [https://github.com/RvB0186/ConnectFlight.git](https://github.com/RvB0186/ConnectFlight.git)
 
 
 Acesse a pasta do projeto:
